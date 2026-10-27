@@ -1,0 +1,16 @@
+# Godot editor/import cache and temporary export products
+.godot/
+game/.godot/
+game/build/
+game/export/
+*.apk
+*.aab
+
+# Android release signing credentials: never commit these
+*.keystore
+*.jks
+keystore.properties
+
+# Local editor files
+.DS_Store
+Thumbs.db

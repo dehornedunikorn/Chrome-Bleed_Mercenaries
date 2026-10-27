@@ -1,0 +1,23 @@
+; Engine configuration file.
+; Native Android game foundation. Open this folder in Godot 4.x.
+
+config_version=5
+
+[application]
+config/name="Chrome-Bleed Mercenaries"
+run/main_scene="res://scenes/main.tscn"
+config/description="Mobilra tervezett cyberpunk zsoldos stratégiai játék."
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/window_width_override=432
+window/size/window_height_override=768
+window/handheld/orientation=1
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+environment/defaults/default_clear_color=Color(0.035, 0.043, 0.067, 1)
