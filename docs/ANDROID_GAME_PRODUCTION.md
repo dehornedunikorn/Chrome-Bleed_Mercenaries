@@ -81,6 +81,6 @@ Egyéb opcionális, ingyenes/nyílt eszközök: Blender 3D-hez, Audacity hangvá
 
 ## Jelenlegi állapot és következő blokkoló
 
-A `game/` könyvtárban létrejött a Godot Android-projektváz és az első natív képernyőváz. A korábbi helyi `index.html` csak eldobható UI-koncepció; nem kerül a játék repójába. A dedikált [Chrome-Bleed_Mercenaries repó](https://github.com/dehornedunikorn/Chrome-Bleed_Mercenaries) már elérhető, alapállapotban csak egy README volt benne. A Godot Editor és Android SDK nem volt elérhető a munkakörnyezetben, ezért APK-export és készülékteszt még nem történt.
+A kezdő Godot Android-projekt a dedikált [Chrome-Bleed_Mercenaries repó](https://github.com/dehornedunikorn/Chrome-Bleed_Mercenaries) `main` ágán van. A következő munkaszakasz a 7×7-es első taktikai küldetés: 3 zsoldos, akciópontok, korlátozott mozgás, fedezék, látóvonalas lövés, ellenségfázis, futármentés és kijárati kivonás. Ez még prototípus-szintű és Godotban/telefonon nincs ellenőrizve.
 
-Következő technikai lépés: Godot Editor és Android exportkörnyezet, majd az első telepíthető APK és telefonos vertikális szelet.
+Az Android-export, a Godotban való futtatás és készülékteszt még hátravan, mert a Godot Editor és az Android SDK nem volt elérhető a munkakörnyezetben. A mobilos vertikális szeletet a valós eszközös próba után kell tovább bővíteni.
