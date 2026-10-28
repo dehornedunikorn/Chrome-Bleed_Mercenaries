@@ -6,6 +6,7 @@ const CYAN := Color("61f2e4")
 const PINK := Color("ff4fa3")
 const AMBER := Color("ffca72")
 const MUTED := Color("91a0b3")
+const BACKGROUND := Color("080b12")
 const WALL_CELLS := [8, 9, 15, 16, 22, 23, 25, 26, 32, 33, 39]
 
 var mission = MissionStateScript.new()
@@ -16,6 +17,22 @@ var attack_mode := false
 
 func _ready() -> void:
 	_show_hq()
+
+
+func _draw() -> void:
+	draw_rect(Rect2(Vector2.ZERO, size), BACKGROUND)
+	var grid_color := Color(0.19, 0.85, 0.82, 0.045)
+	for x in range(24, int(size.x), 48):
+		draw_line(Vector2(x, 0), Vector2(x, size.y), grid_color, 1.0)
+	for y in range(16, int(size.y), 48):
+		draw_line(Vector2(0, y), Vector2(size.x, y), grid_color, 1.0)
+	draw_line(Vector2(size.x * 0.68, 0), Vector2(size.x, size.y * 0.2), Color(0.38, 0.95, 0.88, 0.12), 2.0)
+	draw_line(Vector2(size.x, size.y * 0.2), Vector2(size.x, size.y * 0.42), Color(1.0, 0.31, 0.64, 0.1), 2.0)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED:
+		queue_redraw()
 
 
 func _new_page(title: String, subtitle: String) -> void:
@@ -49,6 +66,7 @@ func _new_page(title: String, subtitle: String) -> void:
 	heading.text = title
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	heading.add_theme_font_size_override("font_size", 26)
+	heading.add_theme_color_override("font_color", Color("eef7ff"))
 	page.add_child(heading)
 
 	var intro := Label.new()
@@ -125,8 +143,9 @@ func _show_hq() -> void:
 func _panel_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = PANEL_COLOR
-	style.border_color = Color("263244")
+	style.border_color = Color("28616a")
 	style.set_border_width_all(1)
+	style.border_width_left = 3
 	style.set_corner_radius_all(12)
 	style.content_margin_left = 14
 	style.content_margin_right = 14
@@ -225,16 +244,26 @@ func _cell_color(cell: int) -> Color:
 func _tile_style(cell: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color("172432")
+	style.border_color = Color("2c3d50")
 	if cell in WALL_CELLS:
 		style.bg_color = Color("384858")
+		style.border_color = Color("728a9c")
 	elif mission.unit_at(cell) == mission.selected_unit and mission.selected_unit >= 0:
 		style.bg_color = Color("123536")
+		style.border_color = CYAN
+		style.set_border_width_all(2)
 	elif mission.enemy_at(cell) >= 0:
 		style.bg_color = Color("381c30")
+		style.border_color = PINK
 	elif cell == MissionStateScript.EXTRACTION_CELL:
 		style.bg_color = Color("3a3020")
-	style.border_color = Color("2c3d50")
+		style.border_color = AMBER
+	elif (not mission.courier_rescued and cell == mission.courier_cell) or (mission.courier_rescued and cell == mission.active_courier_cell()):
+		style.bg_color = Color("38212d")
+		style.border_color = PINK
 	style.set_border_width_all(1)
+	if cell == MissionStateScript.EXTRACTION_CELL or (mission.unit_at(cell) == mission.selected_unit and mission.selected_unit >= 0):
+		style.set_border_width_all(2)
 	style.set_corner_radius_all(6)
 	return style
 
@@ -301,3 +330,4 @@ func _show_outcome() -> void:
 		)
 		_add_button("Újrapróbálás", _start_mission, true)
 		_add_button("Vissza a főhadiszállásra", _show_hq)
+
